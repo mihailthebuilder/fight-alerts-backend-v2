@@ -5,7 +5,9 @@ pipeline {
 
     stages {
         stage("Mirror image") {
-            goImage.pull()
+            scripts {
+                goImage.pull()
+            }
         }
 
         stage("test") {
