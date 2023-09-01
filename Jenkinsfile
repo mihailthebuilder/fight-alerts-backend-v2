@@ -66,13 +66,13 @@ pipeline {
         //     }
         // }
 
-        stage("Deploy serverless function") {
+        stage("Deploy serverless function [DEV]") {
             steps {
                 script {
                     sh """
                         cd deployment/function
                         terraform init
-                        terraform apply -auto-approve
+                        terraform apply -auto-approve -var="environment=dev"
                     """
                 }
             }
