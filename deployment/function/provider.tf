@@ -8,14 +8,13 @@ terraform {
 
   backend "s3" {
     bucket = "terraform-backends-mm"
-    key    = "fight-alerts-backend"
+    key    = "fight-alerts-service"
     region = "eu-west-2"
   }
 }
 
 provider "aws" {
-  region  = var.region
-  profile = "default"
+  region = var.region
 
   default_tags {
     tags = var.resource_tags

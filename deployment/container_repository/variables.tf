@@ -8,6 +8,6 @@ variable "resource_tags" {
   }
 }
 
-variable "environment" {
-  type = string
+variable "region" {
+  default = "eu-west-2"
 }
