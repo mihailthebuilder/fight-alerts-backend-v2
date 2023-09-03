@@ -6,10 +6,11 @@ def deploymentVersion = "${Calendar.instance.format("yyyy-MM-dd_HH-mm-ss")}.${en
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(name: 'deployEcrAndImage', defaultValue: false, description: 'Deploy container repo & update lambda image?')
+    }
+
     stages {
-        parameters {
-            booleanParam(name: 'deployEcrAndImage', defaultValue: false, description: 'Deploy container repo & update lambda image?')
-        }
         stage("Fetch Docker images") {
             // when(params.deployEcrAndImage)
             steps {
