@@ -10,15 +10,15 @@ pipeline {
         booleanParam(name: 'DEPLOY_ECR_AND_IMAGE', defaultValue: false, description: 'Deploy container repo & update lambda image?')
     }
 
-    def deployEcrAndImage = {
-        expression {
-            return params.DEPLOY_ECR_AND_IMAGE == true
-        }
-    }
+    // def deployEcrAndImage = {
+    //     expression {
+    //         return params.DEPLOY_ECR_AND_IMAGE == true
+    //     }
+    // }
 
     stages {
         stage("Fetch Docker images") {
-            // when(deployEcrAndImage)
+            when(params.DEPLOY_ECR_AND_IMAGE)
             steps {
                 script {
                     appEnvironmentImage.pull()
