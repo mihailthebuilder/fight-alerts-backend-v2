@@ -10,4 +10,5 @@ module "lambda" {
   environment = var.environment
   region      = var.region
   db          = local.db
+  product     = var.product
 }
