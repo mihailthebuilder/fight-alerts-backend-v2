@@ -11,3 +11,7 @@ variable "resource_tags" {
 variable "region" {
   default = "eu-west-2"
 }
+
+variable "product" {
+  default = "fight-alerts"
+}
