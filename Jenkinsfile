@@ -11,14 +11,8 @@ pipeline {
     }
 
     stages {
-        def deployEcrAndImage = {
-            expression {
-                return params.DEPLOY_ECR_AND_IMAGE == true
-            }
-        }
-
         stage("Fetch Docker images") {
-            // when(params.DEPLOY_ECR_AND_IMAGE)
+            when(params.DEPLOY_ECR_AND_IMAGE)
             steps {
                 script {
                     appEnvironmentImage.pull()
