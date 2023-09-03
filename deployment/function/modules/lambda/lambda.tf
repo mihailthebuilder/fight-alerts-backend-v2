@@ -5,9 +5,9 @@ resource "aws_lambda_function" "fight_alerts_lambda" {
 
   environment {
     variables = {
-      DB_HOST     = db.host
-      DB_PASSWORD = db.password
-      DB_USERNAME = db.username
+      DB_HOST     = var.db.host
+      DB_PASSWORD = var.db.password
+      DB_USERNAME = var.db.username
     }
   }
 }

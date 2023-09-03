@@ -2,6 +2,7 @@ locals {
   db = {
     username = data.aws_ssm_parameter.db_username.value
     password = data.aws_ssm_parameter.db_password.value
+    host = "localhost"
   }
 }
 
