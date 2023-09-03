@@ -15,8 +15,9 @@ pipeline {
             when(params.DEPLOY_ECR_AND_IMAGE)
             steps {
                 script {
-                    appEnvironmentImage.pull()
-                }
+                   if (params.DEPLOY_ECR_AND_IMAGE != null && params.DEPLOY_ECR_AND_IMAGE) {
+                        appEnvironmentImage.pull()
+                    }                }
             }
         }
 
