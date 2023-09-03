@@ -11,13 +11,19 @@ pipeline {
     }
 
     stages {
+
+
         stage("Fetch Docker images") {
-            when(params.DEPLOY_ECR_AND_IMAGE)
+            when {
+                expression {
+                    return params.DEPLOY_ECR_AND_IMAGE == true
+                }
+            }
+
             steps {
                 script {
-                   if (params.DEPLOY_ECR_AND_IMAGE != null && params.DEPLOY_ECR_AND_IMAGE) {
-                        appEnvironmentImage.pull()
-                    }                }
+                    appEnvironmentImage.pull()
+                }
             }
         }
 
