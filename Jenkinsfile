@@ -28,7 +28,11 @@ pipeline {
         }
 
         stage("Run tests") {
-            // when(params.deployEcrAndImage)
+            when {
+                expression {
+                    return params.DEPLOY_ECR_AND_IMAGE == true
+                }
+            }
             steps {
                 script {
                     appEnvironmentImage.inside {
@@ -43,7 +47,11 @@ pipeline {
         }
 
         stage("Deploy container repository") {
-            // when(params.deployEcrAndImage)
+            when {
+                expression {
+                    return params.DEPLOY_ECR_AND_IMAGE == true
+                }
+            }
             steps {
                 script {
                     sh """
@@ -60,7 +68,11 @@ pipeline {
         }
 
         stage("Bake image") {
-            // when(params.deployEcrAndImage)
+            when {
+                expression {
+                    return params.DEPLOY_ECR_AND_IMAGE == true
+                }
+            }
             steps {
                 script {
                     appImage = docker.build("${ecrRepoUrl}:${deploymentVersion}","function")
@@ -69,7 +81,11 @@ pipeline {
         }
 
         stage("Push image to container repository") {
-            // when(params.deployEcrAndImage)
+            when {
+                expression {
+                    return params.DEPLOY_ECR_AND_IMAGE == true
+                }
+            }
             steps {
                 script {
                     sh """
