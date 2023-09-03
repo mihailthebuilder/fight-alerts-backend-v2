@@ -18,10 +18,11 @@ resource "aws_iam_role" "fight_alerts_lambda_iam_role" {
   assume_role_policy = data.aws_iam_policy_document.fight_alerts_lambda_iam_policy_document.json
 }
 
-data "aws_iam_policy_document" "fight_alerts_lambda_iam_policy_document" {
+data "aws_iam_policy_document" "assume_role" {
   statement {
     effect = "Allow"
-    principals = {
+
+    principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
