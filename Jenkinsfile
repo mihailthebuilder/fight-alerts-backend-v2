@@ -11,7 +11,7 @@ pipeline {
             booleanParam(name: 'deployEcrAndImage', defaultValue: false, description: 'Deploy container repo & update lambda image?')
         }
         stage("Fetch Docker images") {
-            when(params.deployEcrAndImage)
+            // when(params.deployEcrAndImage)
             steps {
                 script {
                     appEnvironmentImage.pull()
@@ -20,7 +20,7 @@ pipeline {
         }
 
         stage("Run tests") {
-            when(params.deployEcrAndImage)
+            // when(params.deployEcrAndImage)
             steps {
                 script {
                     appEnvironmentImage.inside {
@@ -35,7 +35,7 @@ pipeline {
         }
 
         stage("Deploy container repository") {
-            when(params.deployEcrAndImage)
+            // when(params.deployEcrAndImage)
             steps {
                 script {
                     sh """
@@ -52,7 +52,7 @@ pipeline {
         }
 
         stage("Bake image") {
-            when(params.deployEcrAndImage)
+            // when(params.deployEcrAndImage)
             steps {
                 script {
                     appImage = docker.build("${ecrRepoUrl}:${deploymentVersion}","function")
@@ -61,7 +61,7 @@ pipeline {
         }
 
         stage("Push image to container repository") {
-            when(params.deployEcrAndImage)
+            // when(params.deployEcrAndImage)
             steps {
                 script {
                     sh """
