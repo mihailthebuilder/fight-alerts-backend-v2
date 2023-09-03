@@ -3,6 +3,7 @@ resource "aws_lambda_function" "fight_alerts_lambda" {
 
   role = aws_iam_role.fight_alerts_lambda_iam_role.arn
   image_uri = data.aws_ecr_repository.fight_alerts_ecr_repo.repository_url
+  package_type = "Image"
 
   environment {
     variables = {
