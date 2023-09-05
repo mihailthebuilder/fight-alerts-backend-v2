@@ -10,12 +10,14 @@ resource "aws_rds_cluster" "rds_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "single_instance" {
-  count              = 1
-  identifier         = "${var.product}-${var.environment}-instance-${count.index}"
-  cluster_identifier = aws_rds_cluster.rds_cluster.cluster_identifier
-  apply_immediately  = true
-  engine             = aws_rds_cluster.rds_cluster.engine
-  instance_class     = "db.t3.medium"
-  engine_version     = aws_rds_cluster.rds_cluster.engine_version
-  ca_cert_identifier = "rds-ca-ecc384-g1"
+  count                  = 1
+  identifier             = "${var.product}-${var.environment}-instance-${count.index}"
+  cluster_identifier     = aws_rds_cluster.rds_cluster.cluster_identifier
+  apply_immediately      = true
+  engine                 = aws_rds_cluster.rds_cluster.engine
+  instance_class         = "db.t3.medium"
+  engine_version         = aws_rds_cluster.rds_cluster.engine_version
+  ca_cert_identifier     = "rds-ca-ecc384-g1"
+  publicly_accessible    = true
+  vpc_security_group_ids = [aws_security_group.rds_cluster_security_group.id]
 }

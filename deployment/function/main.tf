@@ -20,7 +20,7 @@ module "rds" {
   db_username = local.db_username
   db_password = local.db_password
   product     = var.product
-  vpc_id = data.aws_ssm_parameter.vpc_id.value
-  ip_address = data.aws_ssm_parameter.ip_address.value
+  vpc_id      = data.aws_ssm_parameter.vpc_id.value
+  ip_address  = data.aws_ssm_parameter.ip_address.value
   vpc_subnets = data.aws_subnets.vpc_subnets.ids
 }

@@ -17,6 +17,6 @@ data "aws_ssm_parameter" "ip_address" {
 data "aws_subnets" "vpc_subnets" {
   filter {
     name   = "vpc-id"
-    values = [data.aws_ssm_parameter.jenkins_vpc_id.value]
+    values = [data.aws_ssm_parameter.vpc_id.value]
   }
 }
