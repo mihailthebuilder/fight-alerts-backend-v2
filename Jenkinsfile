@@ -8,6 +8,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'DEPLOY_ECR_AND_IMAGE', defaultValue: false, description: 'Deploy container repo & update lambda image?')
+        booleanParam(name: 'DESTROY_APP', defaultValue: false, description: 'Destroy all application resources?')
     }
 
     stages {
@@ -57,7 +58,7 @@ pipeline {
                     sh """
                         cd deployment/container_repository
                         terraform init
-                        terraform apply -auto-approve                        
+                        terraform apply -auto-approve                      
                     """
                     ecrRepoUrl = sh(script: """
                         cd deployment/container_repository
@@ -91,20 +92,40 @@ pipeline {
                     sh """
                         aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin ${ecrRepoUrl}
                         docker push ${ecrRepoUrl}:${deploymentVersion}
-                        docker tag ${ecrRepoUrl}:${deploymentVersion} ${ecrRepoUrl}:latest
-                        docker push ${ecrRepoUrl}:latest
                     """
                 }
             }
         }
 
-        stage("Deploy serverless function [DEV]") {
+        stage("Deploy application [DEV]") {
+            when {
+                expression {
+                    return params.DESTROY_APP == false
+                }
+            }
             steps {
                 script {
                     sh """
                         cd deployment/function
                         terraform init
                         terraform apply -auto-approve -var="environment=dev"
+                    """
+                }
+            }
+        }
+
+        stage("Destroy application") {
+            when {
+                expression {
+                    return params.DESTROY_APP == true
+                }
+            }
+            steps {
+                script {
+                    sh """
+                        cd deployment/function
+                        terraform init
+                        terraform destroy -auto-approve -var="environment=dev"
                     """
                 }
             }

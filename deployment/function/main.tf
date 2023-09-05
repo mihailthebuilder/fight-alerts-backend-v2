@@ -1,15 +1,23 @@
 locals {
-  db = {
-    username = data.aws_ssm_parameter.db_username.value
-    password = data.aws_ssm_parameter.db_password.value
-    host = "localhost"
-  }
+  db_username = data.aws_ssm_parameter.db_username.value
+  db_password = data.aws_ssm_parameter.db_password.value
 }
 
 module "lambda" {
   source      = "./modules/lambda"
   environment = var.environment
   region      = var.region
-  db          = local.db
+  db_username = local.db_username
+  db_password = local.db_password
+  db_host     = "localhost"
+  product     = var.product
+}
+
+module "rds" {
+  source      = "./modules/rds"
+  environment = var.environment
+  region      = var.region
+  db_username = local.db_username
+  db_password = local.db_password
   product     = var.product
 }

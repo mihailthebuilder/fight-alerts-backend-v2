@@ -1,5 +1,5 @@
 build:
-	GOARCH=arm go build -o ./bin/app
+	GOOS=linux GOARCH=amd64 go build -o ./bin/app
 
 test:
 	go test ./ ./scraper ./lambda_handler ./datastore -coverprofile=./test_results/coverage.out
