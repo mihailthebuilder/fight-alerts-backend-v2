@@ -8,7 +8,7 @@ resource "aws_security_group_rule" "allow_ip_to_rds_cluster" {
   from_port         = 5432
   to_port           = 5432
   protocol          = "tcp"
-  cidr_blocks       = [var.ip_address]
+  cidr_blocks       = ["${var.ip_address}/32"]
   security_group_id = aws_security_group.rds_cluster_security_group.id
 }
 
