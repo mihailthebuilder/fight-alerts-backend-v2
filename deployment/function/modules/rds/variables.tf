@@ -6,3 +6,4 @@ variable "region" {}
 variable "vpc_id" {}
 variable "ip_address" {}
 variable "vpc_subnets" {}
+variables "allow_access_to_security_group_id" {}
