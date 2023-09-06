@@ -33,3 +33,21 @@ resource "aws_security_group" "rds_access" {
   name   = "${var.product}-${var.environment}-rds-sg"
   vpc_id = data.aws_ssm_parameter.vpc_id.value
 }
+
+resource "aws_security_group_rule" "allow_all_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.rds_access.id
+}
+
+resource "aws_security_group_rule" "allow_all_ingress" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.rds_access.id
+}
