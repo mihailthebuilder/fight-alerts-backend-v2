@@ -19,7 +19,7 @@ resource "aws_lambda_function" "fight_alerts_lambda" {
   }
 }
 
-resource "aws_iam_role" "lambda_assume_role" {
+resource "aws_iam_role" "lambda_iam_role" {
   name               = "${var.product}-lambda-iam-assume-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
@@ -35,4 +35,9 @@ data "aws_iam_policy_document" "assume_role_policy" {
 
     actions = ["sts:AssumeRole"]
   }
+}
+
+resource "aws_iam_role_policy_attachment" "execution_policy_attachment" {
+  role       = aws_iam_role.lambda_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
