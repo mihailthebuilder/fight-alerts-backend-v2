@@ -1,3 +1,3 @@
 output "rds_database_endpoint_rw" {
-  value = module.rds.aws_rds_cluster.endpoint
+  value = aws_rds_cluster.rds_cluster.endpoint
 }
