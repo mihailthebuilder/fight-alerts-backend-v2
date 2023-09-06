@@ -7,17 +7,17 @@ resource "aws_rds_cluster" "rds_cluster" {
   skip_final_snapshot         = true
   engine_version              = "14.6"
   allow_major_version_upgrade = true
-  vpc_security_group_ids = [aws_security_group.rds_cluster_security_group.id]
+  vpc_security_group_ids      = [aws_security_group.rds_cluster_security_group.id]
 }
 
 resource "aws_rds_cluster_instance" "single_instance" {
-  count                  = 1
-  identifier             = "${var.product}-${var.environment}-instance-${count.index}"
-  cluster_identifier     = aws_rds_cluster.rds_cluster.cluster_identifier
-  apply_immediately      = true
-  engine                 = aws_rds_cluster.rds_cluster.engine
-  instance_class         = "db.t3.medium"
-  engine_version         = aws_rds_cluster.rds_cluster.engine_version
-  publicly_accessible    = true
-  ca_cert_identifier = "rds-ca-rsa2048-g1"
+  count               = 1
+  identifier          = "${var.product}-${var.environment}-instance-${count.index}"
+  cluster_identifier  = aws_rds_cluster.rds_cluster.cluster_identifier
+  apply_immediately   = true
+  engine              = aws_rds_cluster.rds_cluster.engine
+  instance_class      = "db.t3.medium"
+  engine_version      = aws_rds_cluster.rds_cluster.engine_version
+  publicly_accessible = true
+  ca_cert_identifier  = "rds-ca-rsa2048-g1"
 }
