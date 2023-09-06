@@ -4,7 +4,7 @@ resource "aws_lambda_function" "fight_alerts_lambda" {
   role         = aws_iam_role.lambda.arn
   image_uri    = "${data.aws_ecr_repository.fight_alerts_ecr_repo.repository_url}:${data.aws_ecr_repository.fight_alerts_ecr_repo.most_recent_image_tags[0]}"
   package_type = "Image"
-  timeout      = 60
+  timeout      = 120
 
   vpc_config {
     subnet_ids         = var.vpc_subnets
