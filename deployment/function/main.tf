@@ -18,15 +18,16 @@ module "lambda" {
 }
 
 module "rds" {
-  source      = "./modules/rds"
-  environment = var.environment
-  region      = var.region
-  db_username = local.db_username
-  db_password = local.db_password
-  product     = var.product
-  vpc_id      = local.vpc_id
-  ip_address  = data.aws_ssm_parameter.ip_address.value
-  vpc_subnets = local.vpc_subnets
+  source                            = "./modules/rds"
+  environment                       = var.environment
+  region                            = var.region
+  db_username                       = local.db_username
+  db_password                       = local.db_password
+  product                           = var.product
+  vpc_id                            = local.vpc_id
+  ip_address                        = data.aws_ssm_parameter.ip_address.value
+  vpc_subnets                       = local.vpc_subnets
+  allow_access_to_security_group_id = aws_security_group.rds_access.id
 }
 
 resource "aws_security_group" "rds_access" {
