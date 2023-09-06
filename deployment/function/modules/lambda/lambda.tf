@@ -20,7 +20,7 @@ resource "aws_lambda_function" "fight_alerts_lambda" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name               = "${var.product}-lambda-iam-assume-role"
+  name_prefix        = "${var.product}-lambda-iam-assume-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 
