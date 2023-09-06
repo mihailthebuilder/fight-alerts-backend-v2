@@ -4,5 +4,5 @@ variable "db_username" {}
 variable "db_password" {}
 variable "db_host" {}
 variable "region" {}
-variable "vpc_id" {}
+variable "live_in_security_group" {}
 variable "vpc_subnets" {}

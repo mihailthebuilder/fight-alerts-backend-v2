@@ -7,7 +7,7 @@ resource "aws_lambda_function" "fight_alerts_lambda" {
 
   vpc_config {
     subnet_ids         = var.vpc_subnets
-    security_group_ids = [var.vpc_id]
+    security_group_ids = [var.live_in_security_group]
   }
 
   environment {
