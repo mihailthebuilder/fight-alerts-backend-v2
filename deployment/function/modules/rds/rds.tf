@@ -7,7 +7,6 @@ resource "aws_rds_cluster" "rds_cluster" {
   skip_final_snapshot         = true
   engine_version              = "14.6"
   allow_major_version_upgrade = true
-  publicly_accessible         = true
   # vpc_security_group_ids      = [aws_security_group.rds_cluster_security_group.id]
 }
 
