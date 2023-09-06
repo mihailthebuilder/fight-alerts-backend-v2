@@ -6,10 +6,10 @@ resource "aws_lambda_function" "fight_alerts_lambda" {
   package_type = "Image"
   timeout      = 120
 
-  vpc_config {
-    subnet_ids         = var.vpc_subnets
-    security_group_ids = [var.live_in_security_group]
-  }
+  # vpc_config {
+  #   subnet_ids         = var.vpc_subnets
+  #   security_group_ids = [var.live_in_security_group]
+  # }
 
   environment {
     variables = {
