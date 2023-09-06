@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"log"
 	"time"
 )
@@ -25,14 +24,20 @@ type FightRecord struct {
 }
 
 func (h Handler) HandleRequest() {
+	log.Println("Starting handler...")
+
+	log.Println("Fetching results from URL...")
 	records, err := h.Scraper.GetResultsFromUrl()
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Printf("Scraped data:\n%#v\n", records)
+	log.Printf("Scraped data:\n%#v\n", records)
 
+	log.Println("Replacing records in datastore...")
 	err = h.Datastore.ReplaceWithNewRecords(records)
 	if err != nil {
 		log.Panic(err)
 	}
+
+	log.Println("Lambda function complete.")
 }
