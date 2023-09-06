@@ -19,4 +19,5 @@ resource "aws_rds_cluster_instance" "single_instance" {
   instance_class         = "db.t3.medium"
   engine_version         = aws_rds_cluster.rds_cluster.engine_version
   publicly_accessible    = true
+  ca_cert_identifier = "rds-ca-rsa2048-g1"
 }
