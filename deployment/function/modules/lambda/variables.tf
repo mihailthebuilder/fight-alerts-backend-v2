@@ -6,3 +6,4 @@ variable "db_host" {}
 variable "region" {}
 variable "live_in_security_group" {}
 variable "vpc_subnets" {}
+variable "vpc_id" {}

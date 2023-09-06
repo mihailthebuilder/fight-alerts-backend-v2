@@ -2,6 +2,7 @@ locals {
   db_username = data.aws_ssm_parameter.db_username.value
   db_password = data.aws_ssm_parameter.db_password.value
   vpc_subnets = data.aws_subnets.vpc_subnets.ids
+  vpc_id      = data.aws_ssm_parameter.vpc_id.value
 }
 
 module "lambda" {
@@ -14,6 +15,7 @@ module "lambda" {
   product                = var.product
   live_in_security_group = aws_security_group.rds_access.id
   vpc_subnets            = local.vpc_subnets
+  vpc_id                 = local.vpc_id
 }
 
 module "rds" {
@@ -23,7 +25,7 @@ module "rds" {
   db_username                         = local.db_username
   db_password                         = local.db_password
   product                             = var.product
-  vpc_id                              = data.aws_ssm_parameter.vpc_id.value
+  vpc_id                              = local.vpc_id
   ip_address                          = data.aws_ssm_parameter.ip_address.value
   vpc_subnets                         = local.vpc_subnets
   allow_access_from_security_group_id = aws_security_group.rds_access.id
